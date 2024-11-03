@@ -5,8 +5,8 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: a3722a3dcaec0dd4d99cdce8bee935f7
-      size: 191
+      md5: 5c6e8d2ba1da241d889f85d99d433a8c
+      size: 192
     - path: src/data/make_dataset.py
       hash: md5
       md5: ea6256291a7408591867ae137aad398c
@@ -14,7 +14,7 @@ stages:
     outs:
     - path: data/raw
       hash: md5
-      md5: b1d27045aaf77817ef84643f17980cbd.dir
+      md5: efdb4201289eb1fb5bd3af4a306d9949.dir
       size: 3116255
       nfiles: 2
   process_data:
@@ -22,7 +22,7 @@ stages:
     deps:
     - path: data/raw
       hash: md5
-      md5: b1d27045aaf77817ef84643f17980cbd.dir
+      md5: efdb4201289eb1fb5bd3af4a306d9949.dir
       size: 3116255
       nfiles: 2
     - path: src/data/process_data.py
@@ -32,7 +32,7 @@ stages:
     outs:
     - path: data/processed
       hash: md5
-      md5: 420a3953d0e593ff24949ae32ed948ac.dir
+      md5: b7f58cd05489e4fce964fa97d70d5868.dir
       size: 2151244
       nfiles: 2
   build_features:
@@ -40,7 +40,7 @@ stages:
     deps:
     - path: data/processed
       hash: md5
-      md5: 420a3953d0e593ff24949ae32ed948ac.dir
+      md5: b7f58cd05489e4fce964fa97d70d5868.dir
       size: 2151244
       nfiles: 2
     - path: src/features/build_features.py
@@ -50,16 +50,16 @@ stages:
     outs:
     - path: data/features
       hash: md5
-      md5: cf43edbb9b5aeb8288350df9c5f3a3b0.dir
-      size: 4120294
+      md5: 79a2a05041f540e556c59738276e936b.dir
+      size: 8120594
       nfiles: 2
   train_model:
     cmd: python ./src/models/train_model.py
     deps:
     - path: data/features
       hash: md5
-      md5: cf43edbb9b5aeb8288350df9c5f3a3b0.dir
-      size: 4120294
+      md5: 79a2a05041f540e556c59738276e936b.dir
+      size: 8120594
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
@@ -68,19 +68,19 @@ stages:
     outs:
     - path: models/trained_model.pkl
       hash: md5
-      md5: 1aa0f2f3bf5e88f11c303f9fe36645c6
-      size: 282024
+      md5: 25eb439ee1e2e890a9f1e8e9078114bf
+      size: 442136
   predict_model:
     cmd: python ./src/models/predict_model.py
     deps:
     - path: ./data/features/feature_test_data.csv
       hash: md5
-      md5: b35d0cddbc5883e787062f4da3696cd5
-      size: 1236147
+      md5: a6012b7881343d33c6c9fa31807ff892
+      size: 3248297
     - path: ./models/trained_model.pkl
       hash: md5
-      md5: 1aa0f2f3bf5e88f11c303f9fe36645c6
-      size: 282024
+      md5: 25eb439ee1e2e890a9f1e8e9078114bf
+      size: 442136
     - path: ./src/models/predict_model.py
       hash: md5
       md5: 9b9e008e52c935ab3460aa6f9e34a138
@@ -88,5 +88,5 @@ stages:
     outs:
     - path: ./data/predictions/predicted_results.csv
       hash: md5
-      md5: 9e953d642fbf37c49c6f8b0322c29bf5
-      size: 1260163
+      md5: 27f3382da37c3db9529d54b4b185daf9
+      size: 3280313
