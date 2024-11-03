@@ -1,0 +1,92 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: a3722a3dcaec0dd4d99cdce8bee935f7
+      size: 191
+    - path: src/data/make_dataset.py
+      hash: md5
+      md5: ea6256291a7408591867ae137aad398c
+      size: 4034
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: b1d27045aaf77817ef84643f17980cbd.dir
+      size: 3116255
+      nfiles: 2
+  process_data:
+    cmd: python ./src/data/process_data.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: b1d27045aaf77817ef84643f17980cbd.dir
+      size: 3116255
+      nfiles: 2
+    - path: src/data/process_data.py
+      hash: md5
+      md5: 9e7e17c166b1907f3c7960ecaa4eb75b
+      size: 5023
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 420a3953d0e593ff24949ae32ed948ac.dir
+      size: 2151244
+      nfiles: 2
+  build_features:
+    cmd: python ./src/features/build_features.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 420a3953d0e593ff24949ae32ed948ac.dir
+      size: 2151244
+      nfiles: 2
+    - path: src/features/build_features.py
+      hash: md5
+      md5: b159506871ba36902249bb2048ab892b
+      size: 5188
+    outs:
+    - path: data/features
+      hash: md5
+      md5: cf43edbb9b5aeb8288350df9c5f3a3b0.dir
+      size: 4120294
+      nfiles: 2
+  train_model:
+    cmd: python ./src/models/train_model.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: cf43edbb9b5aeb8288350df9c5f3a3b0.dir
+      size: 4120294
+      nfiles: 2
+    - path: src/models/train_model.py
+      hash: md5
+      md5: fd2caf4b5cb34f648084bb4a744242d6
+      size: 2479
+    outs:
+    - path: models/trained_model.pkl
+      hash: md5
+      md5: 1aa0f2f3bf5e88f11c303f9fe36645c6
+      size: 282024
+  predict_model:
+    cmd: python ./src/models/predict_model.py
+    deps:
+    - path: ./data/features/feature_test_data.csv
+      hash: md5
+      md5: b35d0cddbc5883e787062f4da3696cd5
+      size: 1236147
+    - path: ./models/trained_model.pkl
+      hash: md5
+      md5: 1aa0f2f3bf5e88f11c303f9fe36645c6
+      size: 282024
+    - path: ./src/models/predict_model.py
+      hash: md5
+      md5: 9b9e008e52c935ab3460aa6f9e34a138
+      size: 4902
+    outs:
+    - path: ./data/predictions/predicted_results.csv
+      hash: md5
+      md5: 9e953d642fbf37c49c6f8b0322c29bf5
+      size: 1260163

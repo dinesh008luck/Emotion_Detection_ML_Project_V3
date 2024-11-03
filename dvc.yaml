@@ -1,0 +1,39 @@
+stages:
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py
+    deps:
+    - params.yaml
+    - src/data/make_dataset.py
+    outs:
+    - data/raw
+  process_data:
+    cmd: python ./src/data/process_data.py
+    deps:
+    - data/raw
+    - src/data/process_data.py
+    outs:
+    - data/processed
+  build_features:
+    cmd: python ./src/features/build_features.py
+    deps:
+    - data/processed
+    - src/features/build_features.py
+    outs:
+    - data/features
+  train_model:
+    cmd: python ./src/models/train_model.py
+    deps:
+    - data/features
+    - src/models/train_model.py
+    outs:
+    - models/trained_model.pkl
+
+
+  predict_model:
+    cmd: python ./src/models/predict_model.py
+    deps:
+    - ./data/features/feature_test_data.csv
+    - ./models/trained_model.pkl
+    - ./src/models/predict_model.py
+    outs:
+    - ./data/predictions/predicted_results.csv
