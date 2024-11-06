@@ -5,8 +5,8 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: 5c6e8d2ba1da241d889f85d99d433a8c
-      size: 192
+      md5: 9c9f952eead6b393b91004b4aaf79d5b
+      size: 193
     - path: src/data/make_dataset.py
       hash: md5
       md5: ea6256291a7408591867ae137aad398c
@@ -14,7 +14,7 @@ stages:
     outs:
     - path: data/raw
       hash: md5
-      md5: efdb4201289eb1fb5bd3af4a306d9949.dir
+      md5: 75d1b9fb31cbf4dfed212a511cc11a3f.dir
       size: 3116255
       nfiles: 2
   process_data:
@@ -22,7 +22,7 @@ stages:
     deps:
     - path: data/raw
       hash: md5
-      md5: efdb4201289eb1fb5bd3af4a306d9949.dir
+      md5: 75d1b9fb31cbf4dfed212a511cc11a3f.dir
       size: 3116255
       nfiles: 2
     - path: src/data/process_data.py
@@ -32,7 +32,7 @@ stages:
     outs:
     - path: data/processed
       hash: md5
-      md5: b7f58cd05489e4fce964fa97d70d5868.dir
+      md5: e41abfc1a893a4a280ed048c7cbcd63c.dir
       size: 2151244
       nfiles: 2
   build_features:
@@ -40,7 +40,7 @@ stages:
     deps:
     - path: data/processed
       hash: md5
-      md5: b7f58cd05489e4fce964fa97d70d5868.dir
+      md5: e41abfc1a893a4a280ed048c7cbcd63c.dir
       size: 2151244
       nfiles: 2
     - path: src/features/build_features.py
@@ -50,16 +50,16 @@ stages:
     outs:
     - path: data/features
       hash: md5
-      md5: 79a2a05041f540e556c59738276e936b.dir
-      size: 8120594
+      md5: 2a81b889b56f160b726ed5feb6a5f0ff.dir
+      size: 16121394
       nfiles: 2
   train_model:
     cmd: python ./src/models/train_model.py
     deps:
     - path: data/features
       hash: md5
-      md5: 79a2a05041f540e556c59738276e936b.dir
-      size: 8120594
+      md5: 2a81b889b56f160b726ed5feb6a5f0ff.dir
+      size: 16121394
       nfiles: 2
     - path: src/models/train_model.py
       hash: md5
@@ -68,19 +68,19 @@ stages:
     outs:
     - path: models/trained_model.pkl
       hash: md5
-      md5: 25eb439ee1e2e890a9f1e8e9078114bf
-      size: 442136
+      md5: 7ed340b5eb624285c4920ccbedbb75d1
+      size: 540105
   predict_model:
     cmd: python ./src/models/predict_model.py
     deps:
     - path: ./data/features/feature_test_data.csv
       hash: md5
-      md5: a6012b7881343d33c6c9fa31807ff892
-      size: 3248297
+      md5: 0db9e41f6e817489dbf4b06b93ede26a
+      size: 8060697
     - path: ./models/trained_model.pkl
       hash: md5
-      md5: 25eb439ee1e2e890a9f1e8e9078114bf
-      size: 442136
+      md5: 7ed340b5eb624285c4920ccbedbb75d1
+      size: 540105
     - path: ./src/models/predict_model.py
       hash: md5
       md5: 9b9e008e52c935ab3460aa6f9e34a138
@@ -88,5 +88,5 @@ stages:
     outs:
     - path: ./data/predictions/predicted_results.csv
       hash: md5
-      md5: 27f3382da37c3db9529d54b4b185daf9
-      size: 3280313
+      md5: d303f8fb9359ecf92a4c84f7961d6f0c
+      size: 8100713

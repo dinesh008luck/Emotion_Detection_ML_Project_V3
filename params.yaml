@@ -1,10 +1,10 @@
 make_dataset:
-  test_size: 0.4
+  test_size: 0.5
 
 build_features:
-  max_features: 100
+  max_features: 200
 
 train_model:
-  n_estimators: 80      # adjust value as needed
-  learning_rate: 0.1     # adjust value as needed
+  n_estimators: 150      # adjust value as needed
+  learning_rate: 0.1    # adjust value as needed
 
